@@ -56,7 +56,8 @@
     "com.ivanmurzak.unity.mcp.animation": "2.0.1",
     "com.ivanmurzak.unity.mcp.inputsystem": "2.0.1",
     "com.ivanmurzak.unity.mcp.navigation": "2.0.1",
-    "com.ivanmurzak.unity.mcp.particlesystem": "2.0.1"
+    "com.ivanmurzak.unity.mcp.particlesystem": "2.0.1",
+    "com.unity.pipeline": "0.9.0-exp.1"
   },
   "scopedRegistries": [
     {
