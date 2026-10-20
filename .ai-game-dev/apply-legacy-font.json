@@ -1,0 +1,5 @@
+{
+  "className": "ApplyLegacyBowlby",
+  "methodName": "Run",
+  "csharpCode": "public class ApplyLegacyBowlby { public static string Run() { var font = UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.Font>(\"Assets/1_Modules/Characters/_Tanks/Art/Fonts/Bowlby_One/BowlbyOne-Regular.ttf\"); if (font == null) return \"ttf missing\"; var path = \"Assets/0_Sources/Prefabs/UI/Leaderboard/LB Player Data.prefab\"; var root = UnityEditor.PrefabUtility.LoadPrefabContents(path); int n = 0; foreach (var text in root.GetComponentsInChildren<UnityEngine.UI.Text>(true)) { text.font = font; text.color = UnityEngine.Color.white; UnityEditor.EditorUtility.SetDirty(text); n++; } UnityEditor.PrefabUtility.SaveAsPrefabAsset(root, path); UnityEditor.PrefabUtility.UnloadPrefabContents(root); UnityEditor.AssetDatabase.SaveAssets(); return \"legacy texts=\" + n; } }"
+}

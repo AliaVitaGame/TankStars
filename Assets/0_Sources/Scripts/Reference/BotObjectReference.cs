@@ -14,7 +14,12 @@ public class BotObjectReference : UnitObjectReferenceBase
 
     public override void RestoreSettings()
     {
-        _health.Resurrect();
+        if (_health == null)
+            _health = GetComponentInChildren<IUnitHealth>(true);
+
+        _health?.Resurrect();
+        if (_agent == null)
+            _agent = GetComponentInChildren<NavMeshAgent>(true);
     }
 
     public override void RestorePosition(Vector3 position)

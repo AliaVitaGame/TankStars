@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -30,22 +29,13 @@ public class PlayerInputManager : MonoBehaviour
 
    private void Initialize()
    {
-      InitializeController();
-      _weaponController = GetComponentInChildren<WeaponController>();
-      
-      _weaponController.SetPoolProjectile(poolProjectile);
-      
-      if(_controller ==  null)
-         Debug.LogError("No vehicle controller found");
-
-      _gameInput.Gameplay.Shot.performed += Shoot;
-      
-      _gameInput.Enable(); 
+      InitializeController(true);
+      BindWeaponAndInput();
    }
 
    private void Update()
    {
-      if(_gameInput == null) return;
+      if(_gameInput == null || _controller == null) return;
       
       ReadMovement();
       ReadAim();
@@ -65,6 +55,10 @@ public class PlayerInputManager : MonoBehaviour
 
    private void Shoot(InputAction.CallbackContext context)
    {
+      if (_weaponController == null)
+         _weaponController = GetComponentInChildren<WeaponController>(true);
+
+      if (_weaponController == null) return;
       _weaponController.StartShoot();
    }
    
@@ -72,15 +66,42 @@ public class PlayerInputManager : MonoBehaviour
 
    public void SetInverted(bool isInvertedZ, bool isInvertedX)
    {
-      InitializeController();
-      _controller.SetInverted(isInvertedZ, isInvertedX);
+      InitializeController(false);
+      if (_controller != null)
+         _controller.SetInverted(isInvertedZ, isInvertedX);
    }
 
-   private void InitializeController()
+   public void RefreshCombat()
    {
-      if(_controller) return;
-      
-      _gameInput = new MainActions();
-      _controller = GetComponentInChildren<BaseVehicleController>();
+      InitializeController(true);
+      BindWeaponAndInput();
+      if (_weaponController != null)
+         _weaponController.ResetReload();
+   }
+
+   private void BindWeaponAndInput()
+   {
+      _weaponController = GetComponentInChildren<WeaponController>(true);
+      if (_weaponController != null)
+         _weaponController.SetPoolProjectile(poolProjectile);
+
+      if (_controller == null)
+         Debug.LogError("No vehicle controller found");
+
+      if (_gameInput == null)
+         _gameInput = new MainActions();
+
+      _gameInput.Gameplay.Shot.performed -= Shoot;
+      _gameInput.Gameplay.Shot.performed += Shoot;
+      _gameInput.Enable();
+   }
+
+   private void InitializeController(bool forceRefresh)
+   {
+      if (_gameInput == null)
+         _gameInput = new MainActions();
+
+      if (forceRefresh || _controller == null)
+         _controller = GetComponentInChildren<BaseVehicleController>(true);
    }
 }

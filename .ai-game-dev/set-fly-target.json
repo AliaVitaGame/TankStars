@@ -1,0 +1,1 @@
+{"query": "objects | get components | where $ is SkinShopController | set purchaseFlyTarget = unity.find(\"Button (My technique)\").transform"}

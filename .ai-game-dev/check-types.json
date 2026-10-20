@@ -1,0 +1,1 @@
+{"query": "componentTypes | where name in [\"VehicleDeathVfx\", \"VehicleBushCamouflage\", \"VehicleGroundAligner\", \"VehicleWreckage\"] | select name fullName"}

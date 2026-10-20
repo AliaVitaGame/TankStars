@@ -34,15 +34,47 @@ public class PlayerHealthStats : MonoBehaviour, IUnitHealth
     public void Die(GameObject attacker)
     {
         health = 0;
-        model.SetActive(false);
         PlayerDeathEvent?.Invoke();
         OnDeathEvent?.Invoke(gameObject);
         OnDeathContextEvent?.Invoke(new KillInfo(gameObject, attacker));
+        SetModelVisible(false);
     }
 
     public void Resurrect()
     {
         health = maxHealth;
-        model.SetActive(true);
+        SetModelVisible(true);
+        ResetCombat();
+    }
+
+    private void ResetCombat()
+    {
+        foreach (var weapon in GetComponentsInChildren<WeaponController>(true))
+            weapon.ResetReload();
+
+        if (TryGetComponent(out Rigidbody rigidbody))
+        {
+            rigidbody.linearVelocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
+        }
+    }
+
+    private void SetModelVisible(bool visible)
+    {
+        if (model == null)
+            return;
+
+        if (model != gameObject)
+        {
+            model.SetActive(visible);
+            return;
+        }
+
+        foreach (var renderer in GetComponentsInChildren<Renderer>(true))
+            renderer.enabled = visible;
+        foreach (var controller in GetComponentsInChildren<BaseVehicleController>(true))
+            controller.enabled = visible;
+        foreach (var col in GetComponentsInChildren<Collider>(true))
+            col.enabled = visible;
     }
 }

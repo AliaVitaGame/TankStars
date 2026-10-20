@@ -11,6 +11,10 @@ public class PlayerObjectReference : UnitObjectReferenceBase
 
     public override void RestoreSettings()
     {
-        _health.Resurrect();
+        if (_health == null)
+            _health = GetComponentInChildren<IUnitHealth>(true);
+
+        _health?.Resurrect();
+        PlayerInputManager.Instance?.RefreshCombat();
     }
 }

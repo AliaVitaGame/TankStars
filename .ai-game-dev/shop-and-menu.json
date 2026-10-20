@@ -1,0 +1,1 @@
+{"query": "objects | get components | where $ is SkinShopController or $ is MainMenuPanelController | select $ref $type gameObject.name purchaseFlyTarget myTechniqueButton"}

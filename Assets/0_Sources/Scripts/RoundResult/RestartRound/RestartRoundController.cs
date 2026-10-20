@@ -20,7 +20,8 @@ public class RestartRoundController : MonoBehaviour
 
     private IEnumerator RestartTimer()
     {
-        yield return new WaitForSeconds(restartTime);
+        Time.timeScale = 1f;
+        yield return new WaitForSecondsRealtime(restartTime);
         for (int i = 0; i < _units.Count; i++)
         {
             _units[i].RestoreSettings();
@@ -28,6 +29,7 @@ public class RestartRoundController : MonoBehaviour
         }
         
         PanelController.Instance.DeactivateAllPanels();
+        PlayerInputManager.Instance?.RefreshCombat();
     }
 
     private void SpawnUnit(GameObject unit, TeamData team)

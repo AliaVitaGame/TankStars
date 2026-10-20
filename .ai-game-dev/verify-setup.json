@@ -1,0 +1,1 @@
+{"query": "objects | get components | where $ is SkinShopController or $ is QuestController or $ is TimeRewardController | select $type gameObject.name purchaseFlyTarget.name panel.name rewards.count() cells.count()"}

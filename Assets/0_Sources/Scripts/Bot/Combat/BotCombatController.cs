@@ -45,20 +45,13 @@ public class BotCombatController : MonoBehaviour
     private void RotateToTarget()
     {      
         if(_currentTarget ==null) return;
-
-        Vector3 direction = (_currentTarget.position - turret.position).normalized;
-        direction.y = 0;
-        
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        turret.rotation = Quaternion.Slerp(turret.rotation, targetRotation, speedRotation * Time.deltaTime);
+        VehicleSurfaceAlignment.RotateTurretTowards(turret, _currentTarget.position, speedRotation, Time.deltaTime);
     }
 
     public void ResetRotate()
     {
-        Vector3 direction = transform.forward;
-        direction.y = 0;
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        turret.rotation = Quaternion.Slerp(turret.rotation, targetRotation, speedRotation * Time.deltaTime);
+        Vector3 point = turret.position + transform.forward;
+        VehicleSurfaceAlignment.RotateTurretTowards(turret, point, speedRotation, Time.deltaTime);
     }
 
     private bool IsTargetVisible()

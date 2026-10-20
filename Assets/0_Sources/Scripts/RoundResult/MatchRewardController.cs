@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class MatchRewardController : MonoBehaviour
@@ -15,6 +14,9 @@ public class MatchRewardController : MonoBehaviour
     private void ApplyMatchResult(bool isWin)
     {
         var reward = isWin ? winReward : loseReward;
-        PlayerDataManager.Instance.AddCoin(reward);
+        var data = PlayerDataManager.Instance;
+        data.RegisterMatch(isWin);
+        data.AddCoin(reward);
+        data.Save();
     }
 }

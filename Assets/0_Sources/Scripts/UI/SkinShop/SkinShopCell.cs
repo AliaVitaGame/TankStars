@@ -39,20 +39,21 @@ public class SkinShopCell : MonoBehaviour
 
    public void TryBuyOrSelect()
    {
-      _controller.TryBuyOrSelect(_skinData);
+      _controller.TryBuyOrSelect(_skinData, this);
    }
 
    public void RefreshUI()
    {
       var playerData = PlayerDataManager.Instance;
       var isOwned = playerData.HasPurchasedSkin(_skinData.SkinID);
-      var isSelected = playerData.GetSelectedSkin() == _skinData.SkinID;
 
       if (!isOwned) 
          priceText.text = _skinData.Price.ToString();
       
       priceText.gameObject.SetActive(!isOwned);
-      ownedText.gameObject.SetActive(isOwned && !isSelected);
-      selectedText.gameObject.SetActive(isSelected && isOwned);
+      if (ownedText)
+         ownedText.gameObject.SetActive(false);
+      if (selectedText)
+         selectedText.gameObject.SetActive(false);
    }
 }

@@ -1,0 +1,1 @@
+{"query": "objects | where name contains \"technique\" or name contains \"Technique\" or name contains \"\u0442\u0435\u0445\u043d\" | select $ref name $path"}

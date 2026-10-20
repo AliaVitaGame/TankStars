@@ -1,0 +1,1 @@
+{"query": "console | where logType == \"Error\" and message contains \"error CS\" | sort sequence desc | first 8 | select message"}

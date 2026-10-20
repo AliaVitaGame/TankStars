@@ -111,6 +111,8 @@ public class PanelController : MonoBehaviour
 
     public void DeactivateAllPanels()
     {
+        _isPaused = false;
+        Time.timeScale = 1f;
         foreach (var panel in _allPanels)
             panel.SetActive(false);
     }

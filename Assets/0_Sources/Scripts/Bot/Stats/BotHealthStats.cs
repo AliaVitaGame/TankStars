@@ -32,15 +32,35 @@ public class BotHealthStats : MonoBehaviour, IUnitHealth
     public void Die(GameObject attacker)
     {
         health = 0;
-        model.SetActive(false);
-        
         OnDeathEvent?.Invoke(gameObject);
         OnDeathContextEvent?.Invoke(new KillInfo(gameObject, attacker));
+        SetModelVisible(false);
     }
     
     public void Resurrect()
     {
         health = maxHealth;
-        model.SetActive(true);
+        SetModelVisible(true);
+        foreach (var weapon in GetComponentsInChildren<WeaponController>(true))
+            weapon.ResetReload();
+    }
+
+    private void SetModelVisible(bool visible)
+    {
+        if (model == null)
+            return;
+
+        if (model != gameObject)
+        {
+            model.SetActive(visible);
+            return;
+        }
+
+        foreach (var renderer in GetComponentsInChildren<Renderer>(true))
+            renderer.enabled = visible;
+        foreach (var controller in GetComponentsInChildren<BaseVehicleController>(true))
+            controller.enabled = visible;
+        foreach (var col in GetComponentsInChildren<Collider>(true))
+            col.enabled = visible;
     }
 }

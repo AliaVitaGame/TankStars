@@ -1,0 +1,1 @@
+{"csharpCode": "string.Join(\", \", new[] { typeof(WeaponController).GetMethod(\"ResetReload\")?.Name, typeof(PlayerInputManager).GetMethod(\"RefreshCombat\")?.Name, typeof(PlayerHealthStats).Name })"}

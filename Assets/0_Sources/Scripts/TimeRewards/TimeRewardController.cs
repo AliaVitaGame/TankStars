@@ -7,13 +7,14 @@ public class TimeRewardController : MonoBehaviour
 
     private void Start()
     {
-        if(rewards.Length != cells.Length) 
+        if (rewards.Length != cells.Length) 
             Debug.LogError("Reward count mismatch");
 
-        for (int i = 0; i < cells.Length; i++)
+        int count = Mathf.Min(rewards.Length, cells.Length);
+        for (int i = 0; i < count; i++)
         {
             var reward = rewards[i];
-            cells[i].Init(reward.rewardCoin, reward.requiredSeconds);
+            cells[i].Init(i, reward.rewardCoin, reward.requiredSeconds);
         }
     }
     
@@ -24,5 +25,3 @@ public class TimeRewardController : MonoBehaviour
         public int requiredSeconds = 120;
     }
 }
-
-

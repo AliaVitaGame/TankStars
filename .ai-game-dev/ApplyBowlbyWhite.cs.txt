@@ -1,0 +1,87 @@
+public class ApplyBowlbyWhite
+{
+    public static string Run()
+    {
+        var report = new System.Text.StringBuilder();
+        var font = UnityEditor.AssetDatabase.LoadAssetAtPath<TMPro.TMP_FontAsset>(
+            "Assets/1_Modules/Characters/_Tanks/Art/Fonts/Bowlby_One/BowlbyOne_Regular.asset");
+        if (font == null)
+            return "ERROR: BowlbyOne_Regular.asset not found";
+
+        int ApplyTo(UnityEngine.GameObject root)
+        {
+            int n = 0;
+            foreach (var text in root.GetComponentsInChildren<TMPro.TMP_Text>(true))
+            {
+                text.font = font;
+                if (font.material != null)
+                    text.fontSharedMaterial = font.material;
+                text.color = UnityEngine.Color.white;
+                text.enableVertexGradient = false;
+                UnityEditor.EditorUtility.SetDirty(text);
+                n++;
+            }
+            foreach (var text in root.GetComponentsInChildren<UnityEngine.UI.Text>(true))
+            {
+                text.color = UnityEngine.Color.white;
+                UnityEditor.EditorUtility.SetDirty(text);
+                n++;
+            }
+            return n;
+        }
+
+        var prefabGuids = UnityEditor.AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/0_Sources/Prefabs/UI" });
+        int prefabsChanged = 0;
+        int prefabTexts = 0;
+        foreach (var guid in prefabGuids)
+        {
+            var path = UnityEditor.AssetDatabase.GUIDToAssetPath(guid);
+            var root = UnityEditor.PrefabUtility.LoadPrefabContents(path);
+            int local = ApplyTo(root);
+            if (local > 0)
+            {
+                UnityEditor.PrefabUtility.SaveAsPrefabAsset(root, path);
+                prefabsChanged++;
+                prefabTexts += local;
+                report.AppendLine("prefab " + path + " " + local);
+            }
+            UnityEditor.PrefabUtility.UnloadPrefabContents(root);
+        }
+
+        var scenePaths = new[]
+        {
+            "Assets/0_Sources/_Scenes/_Menu.unity",
+            "Assets/0_Sources/_Scenes/Level_PVP_5vs5.unity",
+            "Assets/0_Sources/_Scenes/Level_PVP_BattleRoyale.unity"
+        };
+        foreach (var path in scenePaths)
+        {
+            var scene = UnityEditor.SceneManagement.EditorSceneManager.OpenScene(path, UnityEditor.SceneManagement.OpenSceneMode.Single);
+            int n = 0;
+            foreach (var text in UnityEngine.Object.FindObjectsByType<TMPro.TMP_Text>(UnityEngine.FindObjectsInactive.Include, UnityEngine.FindObjectsSortMode.None))
+            {
+                text.font = font;
+                if (font.material != null)
+                    text.fontSharedMaterial = font.material;
+                text.color = UnityEngine.Color.white;
+                text.enableVertexGradient = false;
+                UnityEditor.EditorUtility.SetDirty(text);
+                n++;
+            }
+            foreach (var text in UnityEngine.Object.FindObjectsByType<UnityEngine.UI.Text>(UnityEngine.FindObjectsInactive.Include, UnityEngine.FindObjectsSortMode.None))
+            {
+                text.color = UnityEngine.Color.white;
+                UnityEditor.EditorUtility.SetDirty(text);
+                n++;
+            }
+            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(scene);
+            UnityEditor.SceneManagement.EditorSceneManager.SaveScene(scene);
+            report.AppendLine("scene " + path + " " + n);
+        }
+
+        UnityEditor.SceneManagement.EditorSceneManager.OpenScene("Assets/0_Sources/_Scenes/_Menu.unity", UnityEditor.SceneManagement.OpenSceneMode.Single);
+        UnityEditor.AssetDatabase.SaveAssets();
+        report.Insert(0, "prefabsChanged=" + prefabsChanged + " prefabTexts=" + prefabTexts + "\n");
+        return report.ToString();
+    }
+}

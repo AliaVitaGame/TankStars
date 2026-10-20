@@ -1,0 +1,1 @@
+{"query": "unity.asset(\"Assets/0_Sources/Prefabs/Characters/Player/Tanks/Tank_Level_1.prefab\") | get components | where $type contains \"Vehicle\" or $type contains \"TankController\" or $type contains \"PlayerHealth\" | select $type"}

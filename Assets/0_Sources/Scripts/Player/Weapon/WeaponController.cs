@@ -15,16 +15,29 @@ public class WeaponController : MonoBehaviour
    
    public WeaponData Weapon => weapon;
 
-   private void Start()
+   private void OnEnable()
    {
-       _isReloading = false;
+       ResetReload();
+   }
+
+   private void OnDisable()
+   {
+       ResetReload();
+   }
+
+   public void ResetReload()
+   {
        StopAllCoroutines();
+       _isReloading = false;
    }
 
    public void StartShoot()
    {
-     if(_isReloading) return;
-     if(gameObject.activeSelf == false) return;
+     if (!isActiveAndEnabled) return;
+     if (_isReloading) return;
+     if (_poolProjectile == null) return;
+     var health = GetComponentInParent<IUnitHealth>(true);
+     if (health != null && health.Health <= 0) return;
      
      StartCoroutine(Shoot()); 
    }

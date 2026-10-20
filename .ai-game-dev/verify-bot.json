@@ -1,0 +1,1 @@
+{"query": "unity.asset(\"Assets/0_Sources/Prefabs/Bot/Bot.prefab\") | get components | where $type contains \"Vehicle\" or $type contains \"BotHealth\" | select $type"}
