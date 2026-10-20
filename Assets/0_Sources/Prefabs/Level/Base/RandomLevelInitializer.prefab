@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8111401554813088791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5919551014693829883}
+  - component: {fileID: 2283052671859054689}
+  m_Layer: 0
+  m_Name: RandomLevelInitializer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5919551014693829883
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8111401554813088791}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2283052671859054689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8111401554813088791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f06f99728e32fe4b88f1d4d4e8e3044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RandomLevelInitializer
+  pivotLevel: {fileID: 0}
+  globalVolume: {fileID: 0}
+  baseVolumeProfile: {fileID: 11400000, guid: 7d387091ad99040d59f8973a0522d17c, type: 2}
+  levels:
+  - levelPrefab: {fileID: 1535486288001363466, guid: 0bad159dde402404c9dc50de81f40d72, type: 3}
+    volumeProfile: {fileID: 11400000, guid: 213904cbb112d52439d5a211fb1f5ad5, type: 2}
+    enabledObjects: []
+    disableObjects: []
+  - levelPrefab: {fileID: 2184068024500632118, guid: e865dfe1284871e4c8610f6b6a339eaf, type: 3}
+    volumeProfile: {fileID: 11400000, guid: 2df4e7fb308f80e4c8c26543ad189bc7, type: 2}
+    enabledObjects: []
+    disableObjects: []

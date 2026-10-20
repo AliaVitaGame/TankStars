@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bed1927aea63a2e439abdeec122e14d0, type: 3}
+  m_Name: Car Skin 3
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSkinData
+  <SkinID>k__BackingField: 9
+  <Icon>k__BackingField: {fileID: 21300000, guid: 7b71e6462e8654b44b1dc0333a2f4516, type: 3}
+  <ModelPreview>k__BackingField: {fileID: 6053853416842512206, guid: 04c51450b0454574b8444cb53fdc44dc, type: 3}
+  <Price>k__BackingField: 0
+  <MaxHealth>k__BackingField: 50
+  <SpeedMove>k__BackingField: 500
+  <RotationSpeedModel>k__BackingField: 10
+  <RotationSpeedTurret>k__BackingField: 150
+  <Weapon>k__BackingField: {fileID: 11400000, guid: a25f7b1ccfcf3bb41afc043f344032f1, type: 2}
+  <SkinPrefab>k__BackingField: {fileID: 960311469127748187, guid: eec4832448b8fa14ca2a090e0a792ea1, type: 3}

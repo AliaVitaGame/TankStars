@@ -1,0 +1,3 @@
+﻿Build path: D:/Proj/Tank Stars/Tank Stars/Build/Tank Stars.exe
+Build number: 1
+PluginYG version: 2.007
